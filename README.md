@@ -35,4 +35,9 @@ Estimated location: 47.9995°N, 2.00142°E
 
 ![](sunrise_example.png)
 
-Type `help sunrise` or `doc sunrise` to get syntax and full documentation. See the function code for further explanations.
+
+## Author
+**François Beauducel**, [IPGP](www.ipgp.fr), [beaudu](https://github.com/beaudu), beauducel@ipgp.fr
+
+## Documentation
+Type `help sunrise` or `doc sunrise` to get syntax and full documentation. See the function code for further explanations, and [![View SUNRISE: sunrise and sunset times on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://fr.mathworks.com/matlabcentral/fileexchange/64692-sunrise-sunrise-and-sunset-times) for users community comments.
