@@ -8,13 +8,13 @@ Without any input argument, `sunrise` will try to guess your location (needs an 
 - with option `'sun2ll'`: estimates the latitude and longitude from sunrise and sunset date/time.
 Both reverse functions need the altitude as an input argument.
 
-The function is fully vectorized so any input parameters can be scalars, vectors or matrix (of the same size). This allows to compute in a single command, for example, the 365 different day lengths at a single location, or even for a full grid of latitudes and longitudes using a 3D matrix:
+The function is fully vectorized so any input parameters can be scalars, vectors or matrix (of the same size). This allows to compute in a single command, for example, the 365 different day lengths at a single location (see examples), or even for a full grid of latitudes and longitudes using a 3D matrix:
 
 ![](sunrise.gif)
 
 ### Examples
 
-To get sunrise/sunset of your current location:
+To get sunrise/sunset at your current location:
 ```matlab
 >> sunrise
 Location: 48.8582 °N, 2.3387 °E, 0 m
@@ -25,7 +25,7 @@ Day length: 11h 10mn 8s
 
 To compute the sunrise/sunset at Reykjavík (Iceland) on Christmas 2020:
 ```matlab
->> sunrise(64.13,-21.91,0,1,datenum(2020,12,25))
+>> sunrise(64.13,-21.91,0,1,'25 Dec 2020')
 Sunrise: 25-Dec-2020 12:24:13 +01
 Sunset:  25-Dec-2020 16:33:11 +01
 Day length: 4h 8mn 57s
@@ -46,11 +46,17 @@ Estimated location: 47.9995°N, 2.00142°E
 To plot the sunrise, noon and sunset times variation during the year 2020 in Montmartre, Paris (48.89N, 2.34E, 130m):
 ```matlab
 d=datenum(2020,1,1:366)';
+% -- computes DST (from last Sunday of March to last Sunday of October)
 dl=ones(size(d)); % Winter time GMT+1
-dl(89:298) = 2; % Daylight Saving Time GMT+2
+m=str2num(datestr(d,'mm'));
+k1=find(m==3 & mod(d,7)==2,1,'last'); % index of last Sunday of March
+k2=find(m==10 & mod(d,7)==2,1,'last'); % index of last Sunday of October
+dl(k1:k2-1) = 2; % Daylight Saving Time GMT+2
+% -- computes sunset/noon/sunrise
 [srise,sset,noon]=sunrise(48.89,2.34,130,dl,d);
-plot(d,24*mod([srise,sset,noon],1),'LineWidth',3)
-datetick('x','mmm')
+% -- plots the results
+plot(d,mod([srise,sset,noon],1),'LineWidth',3)
+datetick('x','mmm'), datetick('y','HH:MM')
 ylabel('Local Time (hour)')
 title('Sunrise, noon, and sunset times in Paris (France)')
 ```
