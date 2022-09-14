@@ -1,8 +1,8 @@
 function varargout=sunrise(varargin)
 %SUNRISE Computes sunset and sunrise time.
-%	SUNRISE(LAT,LON,ALT,TZ) displays time of sunrise and sunset at 
-%	location latitude LAT (decimal degrees, positive towards North), 
-%	longitude LON (decimal degrees, positive towards East), altitude ALT 
+%	SUNRISE(LAT,LON,ALT,TZ) displays time of sunrise and sunset at
+%	location latitude LAT (decimal degrees, positive towards North),
+%	longitude LON (decimal degrees, positive towards East), altitude ALT
 %	(in meters above sea level) for today. Time zone TZ (in hour) is
 %	recommanded but optional (default is the computer system time zone).
 %
@@ -16,22 +16,22 @@ function varargout=sunrise(varargin)
 %	[SRISE,SSET,NOON]=SUNRISE(...) returns time of sunrise, sunset and noon
 %	in datenum format. To get only hours, try datestr(srise,'HH:MM').
 %
-%	DAYLENGTH=SUNRISE(...) returns the day length of light expressed in 
+%	DAYLENGTH=SUNRISE(...) returns the day length of light expressed in
 %	fraction of day. Multiply by 24 to get hours.
 %
-%   LAT=SUNRISE(DAYLENGTH,ALT,DATE,'day2lat') estimates the latitude from  
-%	day length (in fraction of day) and altitude ALT (in meters) for the 
-%	day DATE. If ALT is ommitted it uses sea level (0 m). If DATE is 
+%   LAT=SUNRISE(DAYLENGTH,ALT,DATE,'day2lat') estimates the latitude from
+%	day length (in fraction of day) and altitude ALT (in meters) for the
+%	day DATE. If ALT is ommitted it uses sea level (0 m). If DATE is
 %	ommitted it computes for today.
 %
 %   [LAT,LON]=SUNRISE(SRISE,SSET,ALT,'sun2ll') estimates the latitude and
-%	longitude from sunrise and sunset dates/time, both in GMT time zone 
-%	(TZ = 0), and altitude ALT (in meters). If ALT is ommitted it uses sea 
+%	longitude from sunrise and sunset dates/time, both in GMT time zone
+%	(TZ = 0), and altitude ALT (in meters). If ALT is ommitted it uses sea
 %	level (0 m).
 %
-%	Note: reverse function does not try to fit the sunrise and sunset times, 
+%	Note: reverse function does not try to fit the sunrise and sunset times,
 %	but it uses both noon time (average of sunrise/sunset) and day length
-%	(difference between sunrise/sunset) values to look for the best 
+%	(difference between sunrise/sunset) values to look for the best
 %	latitude and longitude.
 %
 %
@@ -42,16 +42,16 @@ function varargout=sunrise(varargin)
 %		Day length: 14h 47mn 30s
 %
 %		>> sunrise
-%		Location: -8.65°N, 115.2167°E, 0m
+%		Location: -8.65Â°N, 115.2167Â°E, 0m
 %		Sunrise: 16-Oct-2017 05:57:07 +08
 %		Sunset:  16-Oct-2017 18:14:31 +08
 %		Day length: 12h 17mn 24s
 %
 %       >> sunrise(14/24,0,'2019-04-21','day2lat')
-%       Estimated latitude: 49.076°N
+%       Estimated latitude: 49.07Â°N
 %
 %		>> sunrise('2019-04-22 04:52:12','2019-04-22 18:51:04',0,'sun2ll')
-%		Estimated location: 47.9995°N, 2.00142°E
+%		Estimated location: 47.9995Â°N, 2.00142Â°E
 %
 %		Plot sunrise and sunset time variation for the year:
 %		days = datenum(2017,1,1:365);
@@ -65,9 +65,11 @@ function varargout=sunrise(varargin)
 %
 %	Author: Francois Beauducel, IPGP
 %	Created: 2017-10-10 in Paris, France
-%	Updated: 2019-08-18
+%	Updated: 2022-09-14
 
 %	Release history:
+%   [2022-09-14] v1.5
+%       - GNU Octave full compatibility
 %   [2019-08-18] v1.4
 %       - fix an issue in reverse function for western longitudes
 %	[2019-04-21] v1.3
@@ -81,30 +83,30 @@ function varargout=sunrise(varargin)
 %	[2017-10-10] v1.0
 %		- initial function
 %
-%	Copyright (c) 2019, François Beauducel, covered by BSD License.
+%	Copyright (c) 2022, FranÃ§ois Beauducel, covered by BSD License.
 %	All rights reserved.
 %
-%	Redistribution and use in source and binary forms, with or without 
-%	modification, are permitted provided that the following conditions are 
+%	Redistribution and use in source and binary forms, with or without
+%	modification, are permitted provided that the following conditions are
 %	met:
 %
-%	   * Redistributions of source code must retain the above copyright 
+%	   * Redistributions of source code must retain the above copyright
 %	     notice, this list of conditions and the following disclaimer.
-%	   * Redistributions in binary form must reproduce the above copyright 
-%	     notice, this list of conditions and the following disclaimer in 
-%	     the documentation and/or other materials provided with the 
+%	   * Redistributions in binary form must reproduce the above copyright
+%	     notice, this list of conditions and the following disclaimer in
+%	     the documentation and/or other materials provided with the
 %	     distribution
-%	                           
+%
 %	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
-%	IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED 
-%	TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A 
-%	PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
-%	OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
-%	SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
-%	LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
-%	DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
-%	THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-%	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+%	IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+%	TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+%	PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+%	OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+%	SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+%	LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+%	DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+%	THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+%	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 %	OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
@@ -137,27 +139,20 @@ if ~day2lat && ~sun2ll
 
 	% try to guess the location...
 	if nargin < 2 || isempty(varargin{1}) || isempty(varargin{2})
-		%api = 'http://freegeoip.net/json/';
 		api = 'http://ip-api.com/json';
-		if exist('webread','file')
-			S = webread(api);
-			if isfield(S,'lat') && isfield(S,'lon')
-				lat = S.lat;
-				lon = S.lon;
-			else
-				lat = NaN;
-				lon = NaN;
+		if exist('webread','file') == 2
+			D = webread(api);
+			if ~isstruct(D) % for GNU Octave compatibility
+				D = json2struct(D);
 			end
-		else
-			% for Matlab release < 2014b
-			s = urlread(api);
-			x = textscan(regexprep(s,'[{}"]',''),'%s','delimiter',',');
-			lat = jsd(x{1},'lat:');
-			lon = jsd(x{1},'lon:');
+		else % backward compatibility for Matlab < 2014b
+			D = json2struct(urlread(api,'TimeOut',5));
 		end
-		if isnan(lat) || isnan(lon)
+		if ~isfield(D,'lat') || ~isfield(D,'lon')
 			error('Cannot determine automatic location... sorry!')
 		end
+		lat = D.lat;
+		lon = D.lon;
 		autoloc = 1;
 	else
 		lat = varargin{1};
@@ -174,7 +169,7 @@ if ~day2lat && ~sun2ll
 	switch nargout
 		case 0
 			if autoloc
-				fprintf('Location: %g°N, %g°E, %gm\n',lat,lon,alt);
+				fprintf('Location: %gÂ°N, %gÂ°E, %gm\n',lat,lon,alt);
 			end
 			for n = 1:numel(dte)
 				fprintf('Sunrise: %s %+03d\nSunset:  %s %+03d\nDay length: %gh %gmn %gs\n\n', ...
@@ -209,7 +204,12 @@ if day2lat
 		if nargin < 4
 			dte = floor(now);
 		else
-			dte = floor(datenum(varargin{3}));
+			dte = varargin{3};
+			% for GNU Octave compatibility: must check argument of datenum()
+			if isnumeric(dte) && numel(dte) > 2 || ischar(dte)
+				dte = datenum(dte);
+			end
+			dte = floor(dte);
 		end
 		vlat = -90:90;
 		vomega = omeganoon(vlat,0,alt,0,dte); % supposes longitude = 0
@@ -218,7 +218,7 @@ if day2lat
 		if nargout > 0
 			varargout{1} = lat;
 		else
-			fprintf('Estimated latitude: %g°N\n',lat);
+			fprintf('Estimated latitude: %gÂ°N\n',lat);
 		end
 	else
 		error('DAYLENGTH must be defined for reverse computation.')
@@ -240,13 +240,13 @@ if sun2ll
 		else
 			alt = varargin{3};
 		end
-		
+
 		% longitude from noon date and time
 		vlon = -180:180;
 		[~,vnoon] = omeganoon(0,vlon,alt,0,floor(srise)); % supposes latitude = 0
 		[vno,k] = unique(vnoon);
 		lon = interp1(vno,vlon(k),(srise+sset)/2);
-		
+
 		% latitude from daylength
 		vlat = -90:90;
 		vomega = omeganoon(vlat,lon,alt,0,floor(srise));
@@ -255,7 +255,7 @@ if sun2ll
 		if nargout > 1
 			varargout(1:2) = {lat,lon};
 		else
-			fprintf('Estimated location: %g°N, %g°E\n',lat,lon);
+			fprintf('Estimated location: %gÂ°N, %gÂ°E\n',lat,lon);
 		end
 	else
 		error('SUNRISE and SUNSET must be defined for reverse computation.')
@@ -301,11 +301,19 @@ noon = Jt + datenum(2000,1,1,12,0,0) - 2451545 + tz/24;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function y=jsd(X,f)
-% very simple interpretation of JSON string
-k = find(~cellfun(@isempty,strfind(X,f)),1);
-if ~isempty(k)
-	y = str2double(regexprep(X{k},'.*:(.*)','$1'));
-else
-	y = NaN;
+function J=json2struct(json)
+% very simple JSON interpreter
+
+C = textscan(json,'%s','delimiter',',');
+for n = 1:length(C{1})
+	s = textscan(regexprep(C{1}{n},'[{}]',''),'%s','Delimiter',':');
+	key = regexprep(s{1}{1},'[".]',''); % removes any double quote or dot
+	if length(s{1}) > 1
+		if ~isempty(strfind(s{1}{2},'"'))
+			val = regexprep(s{1}{2},'"','');
+		else
+			val = str2double(s{1}{2});
+		end
+		J.(key) = val;
+	end
 end

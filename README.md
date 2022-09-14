@@ -1,10 +1,10 @@
 # Sunrise and sunset times
 
 ## sunrise.m
-This function computes sunrise and sunset times from any location on Earth (latitude, longitude and altitude), for a given date and timezone, and optionally returns noon time and day length.
+This function, Matlab/GNU Octave compatible, computes sunrise and sunset times from any location on Earth (latitude, longitude and altitude), for a given date and timezone, and optionally returns noon time and day length. Based on astronomical equations, it uses an approximate correction for the influence of atmospherical refraction (a solar elevation of -0.83°).
 
-Without any input argument, `sunrise` will try to guess your location (needs an internet connection) and give you the local sunset and sunrise times. The function has also the original capability to compute the reverse problem, i.e., the latitude/longitude from any sunrise/sunset times:
-- with option `'day2lat'`: estimates the latitude from the day length;
+Without any input argument, `sunrise` will try to guess your location (needs an internet connection) and your time zone and give you the local sunset and sunrise times. The function has also the original capability to compute the reverse problem, i.e., the latitude/longitude from any sunrise/sunset times:
+- with option `'day2lat'`: estimates the latitude from the day length and date;
 - with option `'sun2ll'`: estimates the latitude and longitude from sunrise and sunset date/time.
 Both reverse functions need the altitude as an input argument.
 
